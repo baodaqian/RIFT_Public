@@ -227,6 +227,13 @@ the distinctions between original implementations, independent reproductions,
 and PVC replacements. Complex-signal, power-domain, and geometry metrics have
 different meanings and should be reported with their acquisition and recipe.
 
+## Acknowledgements
+
+We thank NSF ACCESS project CIS261724 and Texas A&M University for providing
+the computing credits and infrastructure that supported this work.
+
+Research-funding acknowledgements will be added upon publication.
+
 ## Provenance and third-party notices
 
 [`SOURCE_PROVENANCE.json`](SOURCE_PROVENANCE.json) records the parent repository,
