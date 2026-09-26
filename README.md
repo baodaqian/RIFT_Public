@@ -47,6 +47,67 @@ distance of $4.813\times10^{-5}\,\mathrm{m}^{2}$; on a real-world dataset, it
 reduces the symmetric squared Chamfer distance by up to $95.12\%$ relative to the
 strongest baseline, reaching $5.536\times10^{-2}\,\mathrm{m}^{2}$.
 
+## Illustrations
+
+Figure numbers follow the ICLR 2027 submission. These figures show the shared
+radar field, quantitative comparisons, and the measured-data workflow.
+
+![Figure 1: Radar viewpoints, the learned RIFT field, complex novel-view synthesis, and 3D reconstruction](assets/figures/figure_01_rift_overview.png)
+
+**Figure 1 — One field, two tasks.** RIFT fits adaptive point scatterers with
+direction-dependent complex reflectance to measured radar responses. The same
+field predicts complex signals at unseen viewpoints and provides a 3D scene
+reconstruction.
+
+![Figure 2: Signal and geometry comparisons across six simulated objects](assets/figures/figure_02_simulated_performance.png)
+
+**Figure 2 — Simulated-data performance.** Complex-signal and matched-range
+power errors, alongside Chamfer distance, F1-score, HD95, and IoU. Faint markers
+show individual objects; solid markers show six-object means. RIFT is
+red-orange. Radar Fields and RadarSplat produce power-domain outputs; RadarSplat's
+range-power score uses its image's range crop.
+
+![Figure 3: GOTCHA geometry comparisons for RIFT, SpINR-style, and backprojection](assets/figures/figure_03_gotcha_performance.png)
+
+**Figure 3 — Real-world GOTCHA performance.** Geometry comparisons across the
+Toyota Camry, Nissan Sentra, and Hyundai Santa Fe. Faint markers show individual
+vehicles; solid markers show three-vehicle means, with RIFT in red-orange.
+
+![Figure 4: GOTCHA acquisition, backprojection initialization, signal fitting, and coarse-to-fine densification](assets/figures/figure_04_gotcha_pipeline.png)
+
+**Figure 4 — RIFT on GOTCHA.** The measured-data workflow combines
+backprojection initialization, fitting of complex radar responses, and
+coarse-to-fine densification. The right column shows the Camry field from
+initialization through the selected epoch-40 checkpoint. The parking-lot photo
+is from [Casteel et al. (2007), Figure 2](https://doi.org/10.1117/12.731457).
+
+## Reconstruction results
+
+The following plan views compare the reconstructed scattering support with the
+reference geometry. Method panels use a fixed threshold of $t=0.20$ and
+per-method min–max normalized magnitude; brightness is not a shared physical
+scale across methods.
+
+![Figure 10: Plan-view reconstructions of B787, A320, X-59, Fire truck, Race car, and Loader](assets/figures/figure_10_simulated_reconstructions.png)
+
+**Figure 10 — Six simulated scenes.** Each column is one object. The top row
+shows the ground-truth reference meshes, followed by RIFT and the comparison
+methods, viewed with matching cameras and crops. The two Sugavanam–Ertin rows
+show the full two-stage method and the Stage-1 scattering field separately.
+
+![Figure 13: Plan-view reconstructions of the GOTCHA Toyota Camry, Nissan Sentra, and Hyundai Santa Fe](assets/figures/figure_13_gotcha_reconstructions.png)
+
+**Figure 13 — Three measured GOTCHA vehicles.** The top two rows show registered
+same-generation stand-in meshes and their support on the $48^3$ evaluation
+lattice. The remaining rows compare RIFT, SpINR-style, and backprojection using
+the full 2,410-unit training split. The meshes are geometric references rather
+than scans of the measured vehicles. Model credits: Nieve5677 (Camry), Lone Wolf
+(Sentra), and teenlin3 (Santa Fe); see the
+[reference-mesh sources and licenses](docs/GOTCHA_REFERENCE_MESHES.md).
+
+Figure sources and export details are recorded in
+[`assets/figures/README.md`](assets/figures/README.md).
+
 ## Intel PVC implementation
 
 RIFT (Radon Implicit Field Transform) learns a direction-dependent complex
