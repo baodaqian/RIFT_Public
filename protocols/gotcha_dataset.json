@@ -1,0 +1,27 @@
+{
+  "schema": "rift_gotcha_dataset_v1",
+  "dataset_id": "gotcha_cp_combined",
+  "default_passes": [1, 2, 3, 4, 5, 6, 7, 8],
+  "default_polarizations": ["hh"],
+  "split": {
+    "schema": "gotcha_shared_sector_250_55_55_v1",
+    "seed": 42,
+    "unit": "pass_sector",
+    "sectors_per_pass": {"train": 250, "validation": 55, "test": 55},
+    "same_sector_roles_across_passes_and_polarizations": true,
+    "native_pulses_within_sector": "all"
+  },
+  "regions": {
+    "camry": {
+      "target_id": "toyota_camry",
+      "translation_m": [20.66, -18.71, 0.02],
+      "rotation_local_to_native": [
+        [-0.05442654550121675, 0.9985177770800097, 0.0],
+        [-0.9985177770800097, -0.05442654550121675, 0.0],
+        [0.0, 0.0, 1.0]
+      ],
+      "half_extent_m": 5.0,
+      "placement_provenance": "Existing Camry working frame; footprint-derived orientation, not independently surveyed 3D truth"
+    }
+  }
+}

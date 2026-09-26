@@ -1,0 +1,255 @@
+{
+  "schema": "rift_gotcha_step3_native_complex_directional_sh_roi_fit_v1",
+  "target_id": "toyota_camry",
+  "target_ids": ["toyota_camry", "tophat"],
+  "fit_release_status": "LOCAL_FAKE_TWO_TARGET_FIXED_SUPPORT_CONTROL_ONLY",
+  "train_selector": "P1/HH/sector002/TRAIN, runtime-preflighted IDs",
+  "validation_selector": "P1/HH/sector001/validation, held out after architecture/support/updates are frozen",
+  "tophat_train_selector": "P1/P7 HH canonical TRAIN sectors 002/092/182/272, independent ragged panels",
+  "tophat_validation_selector": "P1/P7 HH validation sectors 001/091/181/271, diagnostic-only fixed selector",
+  "tophat_panel_wise_image_pooling": false,
+  "actual_mode": {
+    "requires_archive_root": true,
+    "archive_root_contract": "archive parent or exact converted_v3_joint8_fullpol/shards directory",
+    "requires_fresh_output_dir": true,
+    "fake_fallback": false,
+    "solver_default": "gd",
+    "solver_choices": ["gd", "cgls"],
+    "cgls_max_iterations": 24,
+    "cgls_diagnostic_steps": [0, 8, 16, 24],
+    "cgls_termination_reasons": [
+      "normal_equation_stationarity",
+      "nonpositive_search_denominator_breakdown",
+      "max_iterations_reached"
+    ],
+    "record_microbatch_argument": "accepted for interface compatibility; ignored in actual full-aperture mode",
+    "actual_array_memory_chunks": "spatial_chunk_size=128 and frequency_chunk_size=64",
+    "range_comparison_mode": "actual_range_subspace_comparison",
+    "range_comparison_requires_saved_native_root": true,
+    "camry_loader_sequence": "ACQ.load_native_shard -> header/role/identity seal -> shard.observations -> SOURCE_AF.build_source_af(train then validation)",
+    "tophat_loader_sequence": "ACQ.load_native_shard(P1/P7) -> LOC.prepare_tophat_measured_response_screen_dataset(train once) -> scoped validation conversion",
+    "validation_selector_must_be_explicit": true,
+    "test_payload_opened": false
+  },
+  "count_contracts": {
+    "toyota_camry": {
+      "train_record_count": 117,
+      "train_frequency_count_per_record": 424,
+      "train_frequency_sample_count": 49608,
+      "validation_record_count": 117,
+      "validation_frequency_count_per_record": 424,
+      "validation_frequency_sample_count": 49608
+    },
+    "tophat": {
+      "train_record_count": 949,
+      "train_frequency_sample_count": 407176,
+      "validation_record_count": 947,
+      "validation_frequency_sample_count": 406308,
+      "frequency_counts_by_pass": {"1": 424, "7": 434},
+      "train_record_counts_by_panel": {
+        "P1/HH/002": 117,
+        "P1/HH/092": 117,
+        "P1/HH/182": 117,
+        "P1/HH/272": 118,
+        "P7/HH/002": 120,
+        "P7/HH/092": 120,
+        "P7/HH/182": 120,
+        "P7/HH/272": 120
+      },
+      "validation_record_counts_by_panel": {
+        "P1/HH/001": 117,
+        "P1/HH/091": 117,
+        "P1/HH/181": 118,
+        "P1/HH/271": 117,
+        "P7/HH/001": 119,
+        "P7/HH/091": 119,
+        "P7/HH/181": 120,
+        "P7/HH/271": 120
+      }
+    }
+  },
+  "tophat_placement": {
+    "status": "screen_consistent_provisional_operational_roi",
+    "equation": "p_native = I @ p_local + t",
+    "R": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+    "t_m": [-17.0244, 20.8791, 1.0],
+    "not_a_passed_localizer_survey_registration_physical_containment_or_height_result": true
+  },
+  "placements": {
+    "toyota_camry": {
+      "target_id": "toyota_camry",
+      "equation": "p_native = R @ p_local + t",
+      "R": [[-0.05442654550121675, 0.9985177770800097, 0.0], [-0.9985177770800097, -0.05442654550121675, 0.0], [0.0, 0.0, 1.0]],
+      "t_m": [20.66, -18.71, 0.02],
+      "name": "camry_point_c_declared_working_native_frame_convention",
+      "status": "declared_working_native_frame_convention",
+      "claim_scope": "operational placement convention only; no target recovery, survey registration, autofocus validation, physical geometry, or height claim",
+      "no_recovery_claim": true,
+      "no_survey_registration_claim": true,
+      "no_physical_geometry_claim": true
+    },
+    "tophat": {
+      "target_id": "tophat",
+      "equation": "p_native = R @ p_local + t",
+      "R": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+      "t_m": [-17.0244, 20.8791, 1.0],
+      "name": "tophat_screen_consistent_provisional_operational_roi",
+      "status": "screen_consistent_provisional_operational_roi",
+      "claim_scope": "operational placement convention only; no target recovery, survey registration, autofocus validation, physical geometry, or height claim",
+      "no_recovery_claim": true,
+      "no_survey_registration_claim": true,
+      "no_physical_geometry_claim": true
+    }
+  },
+  "test_payload_opened": false,
+  "actual_archive_opened": false,
+  "pace_action": false,
+  "manager_touched": false,
+  "deployment": "none",
+  "new_job_launch": false,
+  "source_af_formula": "r0_src=float64(r0_raw)+float64(r_correct_raw); response_src=complex128(response_raw)*exp(+i*float64(ph_correct_raw))",
+  "global_complex_gain": "1+0j fixed; no per-record gains",
+  "field_model": {
+    "basis": "real degree-1 SH [Y00,Y1x,Y1y,Y1z]",
+    "coefficients": "four real basis coefficients per voxel, complex128 real/imag field",
+    "all_voxels_active": true,
+    "adaptive_prune_grow_support": false,
+    "spatial_chunk_size": 128,
+    "frequency_chunk_size": 64,
+    "coherent_spatial_sum_before_residual": true,
+    "native_geometry": "float64",
+    "measurement_and_field": "complex128"
+  },
+  "supports": {
+    "tophat": {
+      "lower_edge_m": [-2.0, -2.0, -2.0],
+      "upper_edge_exclusive_m": [2.0, 2.0, 2.0],
+      "cell_size_m": 0.5,
+      "shape": [8, 8, 8],
+      "point_count": 512
+    },
+    "toyota_camry": {
+      "lower_edge_m": [-5.0, -5.0, -5.0],
+      "upper_edge_exclusive_m": [5.0, 5.0, 5.0],
+      "cell_size_m": 1.0,
+      "shape": [10, 10, 10],
+      "point_count": 1000
+    }
+  },
+  "readout": {
+    "tophat": {
+      "shape": [40, 40, 40],
+      "spacing_m": 0.1,
+      "endpoint_inclusion": false,
+      "label": "coarse-support readout—not .1m fitted resolution"
+    },
+    "toyota_camry": {
+      "shape": [100, 100, 100],
+      "spacing_m": 0.1,
+      "endpoint_inclusion": false,
+      "label": "coarse-support readout—not .1m fitted resolution"
+    }
+  },
+  "schedule": {
+    "minimum_actual_optimizer_updates": 12,
+    "deterministic_adjoint_initial_seed": true,
+    "fake_control_schedule": "fixed cyclic record microbatches",
+    "actual_optimizer_schedule": "full-aperture gradient over all selected TRAIN records; record microbatch argument is ignored; spatial/frequency chunks are array-memory scheduling only",
+    "fixed_checkpoint_and_validation_points": [0, 4, 8, 12],
+    "validation_use": "diagnostic_only_fixed_points",
+    "selected_model": "update_12_final_for_train_and_validation",
+    "persistence_points_only": [0, 4, 8, 12],
+    "atomic_per_update": false,
+    "resumable_per_update": false,
+    "validation_support_selection_or_early_stop": false
+  },
+  "cgls_contract": {
+    "available_only_in_actual_mode": true,
+    "actual_optimizer_schedule": "matrix-free complex CGLS over all selected TRAIN records; zero initialization; validation is diagnostic-only",
+    "initialization": "zero",
+    "train_records_only": true,
+    "normalization": "model.loss_and_gradient returns A^H(Ac-y)/N; alpha uses vdot(s,s).real / (vdot(q,q).real/N)",
+    "no_extra_factor_two": true,
+    "no_denominator_floor": true,
+    "stationarity_test": "gamma == 0 indicates normal-equation stationarity; this is not a zero-residual test",
+    "per_iteration_passes": "one model.forward(train,p) plus one model.loss_and_gradient(train,c), whose prediction and gradient are two streamed passes",
+    "max_iterations": 24,
+    "diagnostic_steps": [0, 8, 16, 24]
+  },
+  "range_subspace_contract": {
+    "available_only_in_actual_range_comparison": true,
+    "mode": "actual_range_subspace_comparison",
+    "frequency_grouping": "direct in-memory float64 array equality to a representative; no hashes",
+    "point_response": {
+      "kappa": "4*pi/c",
+      "samples": 8193,
+      "interval": "[0,2*rRayleigh]",
+      "first_positive_strict_bracketed_local_minimum": true,
+      "golden_section_iterations": 64,
+      "g_guard": "0.5*rRayleigh <= g <= 1.5*rRayleigh"
+    },
+    "native_geometry": {
+      "frequencies": "stored native float64 vector exactly; no endpoint regrid",
+      "r0": "effective source r0 only",
+      "c_native": "placement(local origin)",
+      "Rmin": "antenna distance to closed transformed local box",
+      "Rmax": "maximum antenna distance to transformed cube corners"
+    },
+    "range_grid": {
+      "guard": "fixed 2g only",
+      "qminus": "Rmin-Rc-2g",
+      "qplus": "Rmax-Rc+2g",
+      "grid": "q_m=qminus+m*g",
+      "M": "1+ceil((qplus-qminus)/g)",
+      "require_M_lt_K": true,
+      "require_full_rank": true,
+      "condition_bound": 10.0
+    },
+    "E": "K^-1/2 exp(-1j*kappa*nu[m]*m*g)",
+    "Q_cache_key": "(frequency_group,M)",
+    "B": "Q^H * exp(+1j*kappa*nu*(s_c+qminus)) * y",
+    "BH": "exp(-1j*kappa*nu*(s_c+qminus)) * Qz",
+    "dense_T_or_P_materialized": false,
+    "h": "g exactly; g/2 rejected for scored mode",
+    "N_T": "sum M over the split after rank(E)=M; distinct from native K",
+    "range_loss": "||B(Ac-y)||^2/(2*N_T_train)",
+    "range_gradient": "A^H B^H B(Ac-y)/N_T_train",
+    "retention_guard": "fixed-2g sampled retention >= 0.95 on unguarded Rmin-Rc..Rmax-Rc at g/8 plus endpoints",
+    "gauge_check": "centered-frequency and full-frequency gauges agree numerically",
+    "nominal_ambiguity_diagnostic": {
+      "period_definition": "U=c/(2*max_df)",
+      "principal_cell": "[-U/2,U/2] containing q=0",
+      "guarded_interval_must_be_inside_principal_cell": true,
+      "same_delay_exterior_capture_is_nominal_only": true,
+      "off_grid_and_exterior_leakage_are_disclosed_not_selector_tuned": true
+    },
+    "arms": [
+      "saved_native_objective_cgls24",
+      "range_focused_isotropic_bp",
+      "range_focused_degree1_cgls24"
+    ],
+    "saved_arm_fallback": "missing/incompatible sidecars require an independently compatible frozen checkpoint before a fresh forward; no hashes",
+    "bp": "A0 retains Y00 and zeros channels 1:; TRAIN-only alpha=vdot(p,By)/vdot(p,p); no denominator floor",
+    "metrics": [
+      "raw_native_complex_relmse_scoped_diagnostic",
+      "range_focused_complex_RelMSE",
+      "B_domain_prediction_target_energy",
+      "range_complex_correlation",
+      "raw_energy_fraction_retained_by_B",
+      "sampled_in_cube_retention",
+      "exterior_leakage_curve"
+    ]
+  },
+  "persistence": {
+    "full_state": ["checkpoint_latest", "checkpoint_final"],
+    "canonical_ragged_sidecars": ["predictions", "residuals"],
+    "diagnostics": ["coefficient_energy", "projections", "slices", "exact_grid_energy_readout"],
+    "reload_same_checkpoint_parity": true
+  },
+  "actual_resource_policy": {
+    "class": "CPU-only NumPy implementation; adequate headroom requires manager runtime preflight",
+    "gpu_backend": false,
+    "no_inherited_20_minute_mapper_limit": true
+  },
+  "scope_statement": "Local fake-record control only; no archive, PACE, manager, deployment, calibration, autofocus retune, or scheduler action."
+}

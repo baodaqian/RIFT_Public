@@ -1,0 +1,32 @@
+{
+  "schema": "rift_gotcha_regions_v1",
+  "regions": {
+    "camry_box_v2": {
+      "target_id": "toyota_camry",
+      "translation_m": [
+        20.721564796276567,
+        -19.234127633176715,
+        0.77
+      ],
+      "rotation_local_to_native": [
+        [
+          -0.05198654625329323,
+          0.9986477852619782,
+          0.0
+        ],
+        [
+          -0.9986477852619783,
+          -0.05198654625329322,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "half_extent_m": 3.0,
+      "placement_provenance": "camry frame moved to the camry_box_v2 centre (0.52, 0.09, 0.75) camry-local and rotated by its heading 0.14 deg: TRAIN images, the GOTCHA ground-truth workbook footprint and the calibration-array offset (docs/RIFT_GOTCHA_Tune.md A16/A17/A24). The box is centred and axis-aligned in this frame, half-extents (3.0, 1.5, 1.25) m; half_extent_m 3.0 bounds it for the range readout window only."
+    }
+  }
+}

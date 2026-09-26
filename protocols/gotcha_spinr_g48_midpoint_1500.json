@@ -1,0 +1,9 @@
+{
+  "spinr": {
+    "grid_size": 48,
+    "nodes_per_cell": 1,
+    "epochs": 1500,
+    "cosine_epochs": 1500,
+    "pulse_batch_size": 1024
+  }
+}

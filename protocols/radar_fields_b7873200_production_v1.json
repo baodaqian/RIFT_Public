@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "name": "radar_fields_b7873200_production_v1",
+  "status": "review_release",
+  "production_clearance": false,
+  "data": {
+    "dataset": "B787 sphere10k",
+    "npz_path": "/storage/home/hcoda1/1/dbao31/r-jromberg3-0/RIFT/data/b787_fmcw_16t16r_10ghz_bw3ghz_r10m_sphere10k.npz",
+    "sealed_split_manifest": "/storage/scratch1/1/dbao31/rift_round8b_impl_20260810/splits/round8b/b78710k_interp_seed42_train3200_val1000_test1000_v1.json",
+    "num_views": 10000,
+    "response_shape": [10000, 16, 16, 1, 600],
+    "roles": {
+      "train": 3200,
+      "validation": 1000,
+      "test": 1000,
+      "unused": 4800
+    },
+    "test_and_unused_response_access": "sealed_during_training",
+    "acquisition": {
+      "tx": 16,
+      "rx": 16,
+      "frequencies": 600,
+      "pairs_per_view": 256
+    }
+  },
+  "training": {
+    "sealed_protocol": true,
+    "seed": 42,
+    "num_train": 3200,
+    "num_val": 1000,
+    "num_test": 1000,
+    "val_from_tail": true,
+    "extent": 0.15,
+    "granularity": 48,
+    "steps": 8000,
+    "view_batch": 1,
+    "train_pairs": 0,
+    "val_pairs": 0,
+    "eval_every": 2000,
+    "checkpoint_every": 500,
+    "eval_max_views": 0,
+    "stats_max_views": 0,
+    "lr": 0.001,
+    "weight_fft": 0.6,
+    "weight_occ": 0.36,
+    "weight_bimodal": 0.03,
+    "occupancy_threshold": 0.05,
+    "dynamic_range_db": 60.0,
+    "range_margin": 0.05,
+    "range_law": "released",
+    "intensity_offset": 0.05,
+    "intensity_scaler": 1.0,
+    "hidden_dim": 64,
+    "feature_dim": 32,
+    "sh_degree": 3,
+    "sigmoid_tightness": 1.0,
+    "no_batch_norm": false,
+    "hash_levels": 16,
+    "hash_features": 2,
+    "hash_base_resolution": 16,
+    "hash_final_resolution": 512,
+    "hash_log2_size": 19,
+    "query_chunk": 32768,
+    "pair_chunk": 8,
+    "device": "cuda",
+    "checkpoint_name": "rf_b7873200_production_v1"
+  },
+  "schedule": {
+    "learning_rate": {
+      "formula": "lr(step) = 1.0e-3 * 0.1 ** min(step / 8000, 1.0)",
+      "step_0": 0.001,
+      "step_2000": 0.000562341,
+      "step_4000": 0.000316228,
+      "step_6000": 0.000177828,
+      "step_8000": 0.0001
+    },
+    "feature_mask": {
+      "formula": "progress(step) = min(1.0, 0.05 + sin(step / 7999 * pi / 2))",
+      "visible_fraction_formula": "0.4 + 0.6 * progress(step)",
+      "step_1_visible_fraction": 0.430118,
+      "step_2000_visible_fraction": 0.659637,
+      "step_4000_visible_fraction": 0.854306,
+      "step_6000_visible_fraction": 0.984362,
+      "step_8000_visible_fraction": 1.0
+    },
+    "interpretation": "The 8000-step schedule is the proposed production clock. The one-update smoke compressed both schedules and is not a production prefix."
+  },
+  "objective": {
+    "status": "unchanged_repaired_trainer_objective",
+    "metric_domain": "normalized_dB_range_power_intensity",
+    "target_construction": "coherent frequency response -> IFFT over frequency -> squared magnitude range power -> train-only normalized dB intensity",
+    "unsupported_roi_cells": "retained in the native FFT L1 objective after zero RCS rendering",
+    "objective_change_for_padding": false
+  },
+  "resources": {
+    "account": "gts-jromberg3-ece",
+    "qos": "inferno",
+    "pool": "slow",
+    "partition": "gpu-rtx6000",
+    "gres": "gpu:rtx_6000:1",
+    "nodes": 1,
+    "tasks": 1,
+    "cpus": 6,
+    "memory_gb": 32,
+    "temporary_storage_gb": 12,
+    "walltime_hours": 12,
+    "headroom_gate": "process RSS and Torch allocated GPU memory remain below 80 percent of reserved capacity",
+    "sizing_basis": "The one-update gate measured 2.3 seconds for the update and 45 seconds end-to-end on RTX6000; the 12-hour allocation is a conservative proposal, not a measured full-run guarantee."
+  },
+  "readout": {
+    "script": "scripts/readout_radar_fields_b7873200_native.py",
+    "roles": ["val", "test"],
+    "views": "all selected role views",
+    "pair_count": 256,
+    "metric_domain": "normalized_dB_range_power_intensity",
+    "regions": {
+      "whole_roi": "all scene-range-mask entries, including unsupported/padded cells",
+      "valid_region": "entries where differentiable range-cell interpolation mass is positive",
+      "padded_region": "whole ROI minus valid region"
+    },
+    "zero_reference": "zero RCS passed through the same released native intensity transform; with offset=0.05 and scaler=1 this is log10(0.05) = -1.3010299957 before comparison to the normalized target",
+    "reported_errors": ["mean_abs_error", "rel_mse", "rmse", "psnr_db"],
+    "raw_coherent_or_power_metrics": false,
+    "training_objective_modified_by_readout": false
+  },
+  "evidence": {
+    "full_pair_update_job": "12874136",
+    "full_pair_update_marker": "RF_B7873200_REAL_UPDATE_V1_PASS",
+    "roi_padding_diagnostic_job": "12866117",
+    "roi_padding_diagnostic_marker": "RF_B7873200_PADDED_ROI_V1_PASS",
+    "evidence_limits": [
+      "The real-update gate proves the sealed full-pair path and one native optimizer update, not convergence.",
+      "The ROI diagnostic measures a reported-loss floor and zero padded-cell parameter gradients; it does not justify changing the objective."
+    ]
+  },
+  "review_decisions": [
+    "Approve or revise the proposed 8000-update production clock and 12-hour RTX6000 envelope.",
+    "Confirm that whole-ROI and valid-region normalized-dB intensity errors, each paired with the zero-RCS reference, are the required native readout.",
+    "Keep production_clearance=false until actual scientific evidence exists; review authorization alone is not a numerical or performance pass."
+  ]
+}

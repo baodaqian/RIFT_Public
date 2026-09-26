@@ -1,0 +1,140 @@
+{
+  "schema": "rift_gotcha_step3_camry_native_complex_measured_protocol_v1",
+  "stage": "measured_readiness",
+  "data_free": false,
+  "measured_fit_release": false,
+  "run_kind": "one_bounded_p1_hh_train_sector002_source_af_native_complex",
+  "scope": {
+    "pass_id": 1,
+    "polarization": "hh",
+    "role": "train",
+    "sector_id": 2,
+    "canonical_identity": "(pass_id, polarization, sector_id, pulse_index)",
+    "identity_order": "ascending canonical identity",
+    "all_native_pulses_in_sector": true,
+    "expected_pulse_count": 117,
+    "expected_native_frequency_count_per_pulse": 424,
+    "loaded_roles": ["train", "validation"],
+    "materialized_roles": ["train"],
+    "used_roles": ["train"],
+    "validation_selection": false,
+    "validation_records_materialized": false,
+    "validation_response_payload_materialized": true,
+    "test_payload_opened": false,
+    "test_payload_materialized": false,
+    "test_sealing_contract": "trusted_loader_metadata_gate_and_row_exclusion; no independent TEST exposure"
+  },
+  "source": {
+    "archive_root_contract": "converted_v3_joint8_fullpol",
+    "relative_path": "shards/pass1_hh.npz",
+    "scene_id": "gotcha_v1_joint8_fullpol",
+    "loader": "rift.gotcha_acquisition.load_native_shard",
+    "loader_expectations": {
+      "expected_pass_id": 1,
+      "expected_polarization": "hh",
+      "expected_scene_id": "gotcha_v1_joint8_fullpol"
+    },
+    "selection_source": "actual_loaded_archive_records; IDs are emitted at runtime and are not embedded here"
+  },
+  "camry": {
+    "target_id": "toyota_camry",
+    "placement_equation": "p_native = R @ p_local + t",
+    "R": [
+      [-0.05442654550121675, 0.9985177770800097, 0.0],
+      [-0.9985177770800097, -0.05442654550121675, 0.0],
+      [0.0, 0.0, 1.0]
+    ],
+    "t_m": [20.66, -18.71, 0.02],
+    "placement_qualification": "footprint_derived_vehicle_axis_inference_not_independently_registered",
+    "physical_registration_claim": false,
+    "support_local_points_m": [
+      [0.0, 0.0, 0.0],
+      [0.37, -0.21, 0.13],
+      [-0.62, 0.44, -0.18],
+      [0.91, 0.28, 0.31]
+    ],
+    "support_count": 4,
+    "support_semantics": "direct_complex_point_weights",
+    "bridge_probe_coefficients_real_imag": [
+      [0.31, -0.12],
+      [-0.21, 0.33],
+      [0.17, 0.08],
+      [-0.09, -0.19]
+    ],
+    "support_half_open_cube": "[-5,5)^3",
+    "reference_grid_quadrature": false,
+    "spherical_harmonic_Y00": false,
+    "full_vehicle_recovery_supported": false,
+    "global_complex_gain": {
+      "value": "1+0j",
+      "trainable": false
+    }
+  },
+  "native_contract": {
+    "frequency_policy": "native_stored_exact",
+    "frequency_vector_layout": "one_shared_exact_vector_per_shard",
+    "r0_field": "r0",
+    "geometry": "paired_monostatic_tx_equals_rx_same_observation",
+    "source_af_formula": "r0_src=float64(r0_raw)+float64(r_correct_raw); fp_src=complex128(fp_raw)*exp(+i*float64(ph_correct_raw))",
+    "phase_hypothesis_name": "demanet_2012_gotcha_phase_candidate",
+    "phase_forward": "exp(-i * 4*pi*f/c * (R-r0))",
+    "phase_adjoint": "conjugate(exp(-i * 4*pi*f/c * (R-r0)))",
+    "phase_status": "named_candidate_unverified_for_real_archive",
+    "autofocus": "raw_unapplied_channel_owned; source-AF representation is formed once downstream",
+    "identity_transform": "no spatial spotlight; T=identity",
+    "data_prediction_application": "same exact complex T before residual, loss, and energy",
+    "bridge_tolerance": {
+      "criterion": "per-record scaled L2; scaled maximum absolute error reported diagnostically",
+      "acceptance_basis": "empirical fixed-four-point nonzero-probe bridge envelope",
+      "relative_l2": 2e-09,
+      "range_error_epsilon_factor": 1.0,
+      "r0_error_epsilon_factor": 1.0,
+      "phase_reduction_epsilon_factor": 1.0,
+      "exp_error_epsilon_factor": 1.0,
+      "rationale": "the 2e-9 relative L2 envelope is an empirical engineering tolerance for the reviewed four-point nonzero probe at the measured high-phase scale; arithmetic scale context is reported but is not a theorem or gate",
+      "failure_label": "NumPy/Torch nonzero-probe bridge parity",
+      "not_a_tolerance_for": ["source-AF construction", "measurement transform routing", "checkpoint Torch-to-Torch parity"]
+    },
+    "no_target_crop_subtraction_padding": true,
+    "magnitude_conversion": false
+  },
+  "optimizer": {
+    "initialization": "zero real/imag coefficients",
+    "ridge": 0.001,
+    "max_iterations": 2,
+    "max_kernel_evaluations": 2000000,
+    "step_rule": "0.5 / (point_count * sum_abs_multiplier_squared / native_sample_count + ridge)",
+    "lipschitz_scope": "unit-modulus kernel entries and no quadrature amplitude weights",
+    "cumulative_kernel_formula": "(1+2*max_iterations)*point_count*native_sample_count",
+    "preflight_rejects_before_expensive_calculation": true,
+    "checkpoint_prediction_parity_forward_calls": 2,
+    "resource_ledger": {
+      "selected_pulses": 117,
+      "native_frequency_samples": 49608,
+      "point_count": 4,
+      "K_point_times_native_samples": 198432,
+      "numpy_torch_bridge": "2K",
+      "optimizer_trajectory": "(1+2I)K = 5K",
+      "final_reloaded_prediction_parity": "2K",
+      "total": "9K = 1785888"
+    }
+  },
+  "outputs": {
+    "protocol_echo": "protocol_echo.json",
+    "selection": "selection.json",
+    "resource": "resource.json",
+    "native_complex_report": "native_complex_report.json",
+    "ridge_checkpoint": "ridge_checkpoint.npz",
+    "status": "status.json"
+  },
+  "release_disclosure": {
+    "readiness_statement": "one bounded actual TRAIN-only Camry source-AF native-complex optimizer diagnostic",
+    "not_recovery": true,
+    "not_production_fit": true,
+    "not_isolated_target_claim": true,
+    "not_physical_registration_claim": true,
+    "not_accuracy_focus_geometry_evidence": true,
+    "full_vehicle_support": "inadequate; four direct points are implementation readiness only",
+    "decreasing_loss_is_not_recovery": true
+  }
+}

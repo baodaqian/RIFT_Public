@@ -1,0 +1,143 @@
+{
+  "schema": "rift_gotcha_step3_two_target_roi_protocol_v1",
+  "stage": "contract",
+  "role_split": {
+    "train": 288,
+    "validation": 36,
+    "test": 36
+  },
+  "test_policy": "sealed_no_selection",
+  "measurement_prediction_contract": "identical complex spotlight on measured data and predictions before magnitude/power transforms",
+  "targets": {
+    "tophat": {
+      "grid": {
+        "frame": "local_target_frame",
+        "lower_edge_m": [-2.0, -2.0, -2.0],
+        "upper_edge_exclusive_m": [2.0, 2.0, 2.0],
+        "spacing_m": [0.1, 0.1, 0.1],
+        "shape": [40, 40, 40],
+        "index_rule": "lower_edge + 0.1*i for i=0..39",
+        "final_sample_m": [1.9, 1.9, 1.9],
+        "endpoint_inclusion": false,
+        "half_voxel_shift": false,
+        "merged_box": false,
+        "model_specific_omission": false
+      },
+      "p_native": {
+        "status": "unresolved",
+        "equation": "p_native = R @ p_local + t",
+        "value": null,
+        "source": "unresolved",
+        "transform": "unresolved",
+        "frame": "unresolved",
+        "height_datum": "unresolved",
+        "R": null,
+        "t_m": null,
+        "native_frame": "unresolved",
+        "source_evidence": null,
+        "verification_evidence": null
+      },
+      "selected_native_observation_ids": {
+        "status": "unresolved",
+        "values": null
+      },
+      "frozen_phase_r0_af_calibration": {
+        "status": "unresolved",
+        "recipe": "unresolved",
+        "evidence": null,
+        "train_derived_calibration_policy": null,
+        "correction_representation": "unresolved",
+        "af_cross_channel_borrowing": false,
+        "double_correction": false
+      },
+      "complex_spotlight": {
+        "status": "unresolved",
+        "window": "unresolved",
+        "taper": "unresolved",
+        "operator": "unresolved",
+        "aperture": "unresolved",
+        "evidence": null,
+        "data_prediction_application": "identical_complex_spotlight_before_magnitude_power",
+        "data_prediction_equal": false,
+        "role_pure": false
+      },
+      "padding_background": {
+        "status": "unresolved",
+        "policy": "unresolved",
+        "evidence": null,
+        "hidden_padding": false
+      },
+      "psf_leakage": {
+        "status": "unresolved",
+        "evidence": null
+      },
+      "extraction_allowed": false,
+      "fit_allowed": false
+    },
+    "toyota_camry": {
+      "grid": {
+        "frame": "local_target_frame",
+        "lower_edge_m": [-5.0, -5.0, -5.0],
+        "upper_edge_exclusive_m": [5.0, 5.0, 5.0],
+        "spacing_m": [0.1, 0.1, 0.1],
+        "shape": [100, 100, 100],
+        "index_rule": "lower_edge + 0.1*i for i=0..99",
+        "final_sample_m": [4.9, 4.9, 4.9],
+        "endpoint_inclusion": false,
+        "half_voxel_shift": false,
+        "merged_box": false,
+        "model_specific_omission": false
+      },
+      "p_native": {
+        "status": "unresolved",
+        "equation": "p_native = R @ p_local + t",
+        "value": null,
+        "source": "unresolved",
+        "transform": "unresolved",
+        "frame": "unresolved",
+        "height_datum": "unresolved",
+        "R": null,
+        "t_m": null,
+        "native_frame": "unresolved",
+        "source_evidence": null,
+        "verification_evidence": null
+      },
+      "selected_native_observation_ids": {
+        "status": "unresolved",
+        "values": null
+      },
+      "frozen_phase_r0_af_calibration": {
+        "status": "unresolved",
+        "recipe": "unresolved",
+        "evidence": null,
+        "train_derived_calibration_policy": null,
+        "correction_representation": "unresolved",
+        "af_cross_channel_borrowing": false,
+        "double_correction": false
+      },
+      "complex_spotlight": {
+        "status": "unresolved",
+        "window": "unresolved",
+        "taper": "unresolved",
+        "operator": "unresolved",
+        "aperture": "unresolved",
+        "evidence": null,
+        "data_prediction_application": "identical_complex_spotlight_before_magnitude_power",
+        "data_prediction_equal": false,
+        "role_pure": false
+      },
+      "padding_background": {
+        "status": "unresolved",
+        "policy": "unresolved",
+        "evidence": null,
+        "hidden_padding": false
+      },
+      "psf_leakage": {
+        "status": "unresolved",
+        "evidence": null
+      },
+      "extraction_allowed": false,
+      "fit_allowed": false
+    }
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "commit": "38266cb6e194e2f3dcbead614069a7281ffd21a5",
+  "definitions": [
+    {
+      "source": "geraf/models/networks/sdf_network.py",
+      "name": "SingleVarianceNetwork",
+      "destination": "power_network.py",
+      "ast_sha256": "5afbe18da5038f49f8635ea084de60c6486f45a261ef53e4178f6fe4a35e8814"
+    },
+    {
+      "source": "geraf/models/networks/sdf_network.py",
+      "name": "ReflectivePowerNetwork",
+      "destination": "power_network.py",
+      "ast_sha256": "b3171f12db24fefe61c5f6b50651e310710ed56693162b57532882d6ad5e96f6"
+    },
+    {
+      "source": "geraf/models/model_utils/field.py",
+      "name": "IdentityActivation",
+      "destination": "field.py",
+      "ast_sha256": "bf3c9d5267448601ba3cef9e17f2e7e3c8810d38a9fc177241eeb2252cec5205"
+    },
+    {
+      "source": "geraf/models/model_utils/field.py",
+      "name": "ExpActivation",
+      "destination": "field.py",
+      "ast_sha256": "e0ec68835294ef699f2ab699cd31484d9a0e5787a85677b0ac1b9748072f9ec1"
+    },
+    {
+      "source": "geraf/models/model_utils/field.py",
+      "name": "make_predictor",
+      "destination": "field.py",
+      "ast_sha256": "b2240e102550adbcf5fc5b076a7b5f587ddfa3358bd23a616f0352b1a6079038"
+    },
+    {
+      "source": "geraf/models/rendering/base.py",
+      "name": "BaseRendering",
+      "destination": "base.py",
+      "ast_sha256": "a00040e6413b516ee42a900e45324f615a794bdd418c2890021c7f2b62174153"
+    },
+    {
+      "source": "geraf/models/rendering/rf_rendering.py",
+      "name": "_load_checkpoint_state_dict",
+      "destination": "rf_rendering.py",
+      "ast_sha256": "c2963ec7aa45174014493b8b10279e90388e0491f4772ec19bc43c0c72e5fad9"
+    },
+    {
+      "source": "geraf/models/rendering/rf_rendering.py",
+      "name": "_log_message",
+      "destination": "rf_rendering.py",
+      "ast_sha256": "c993ad7f7081b8c00a6551c30e00fb488a1ddbf497bbc08e82b86659b973086f"
+    },
+    {
+      "source": "geraf/models/rendering/rf_rendering.py",
+      "name": "_compute_transmission",
+      "destination": "rf_rendering.py",
+      "ast_sha256": "b4851d77fb679e94b6a184154f4849101fb10af85226506f3a280129964e7ab7"
+    },
+    {
+      "source": "geraf/models/rendering/rf_rendering.py",
+      "name": "_reshape_masked",
+      "destination": "rf_rendering.py",
+      "ast_sha256": "894033025d0c98130843720e94241710fdb15f57c0e0c1765f4280689f149c6e"
+    },
+    {
+      "source": "geraf/models/rendering/rf_rendering.py",
+      "name": "_detach_cache_to_cpu",
+      "destination": "rf_rendering.py",
+      "ast_sha256": "90d22e9427c2f6ba4f079ac10525d97989371425004994ee0126bc795192752b"
+    },
+    {
+      "source": "geraf/models/rendering/rf_rendering.py",
+      "name": "GeRaFStageBase",
+      "destination": "rf_rendering.py",
+      "ast_sha256": "865038add4a757076049ff0128c1d8f74aa766dbb4d9d0201d9106ee5aed8fa8"
+    },
+    {
+      "source": "geraf/models/rendering/rf_rendering.py",
+      "name": "GeRaFStage1",
+      "destination": "rf_rendering.py",
+      "ast_sha256": "02b79a98c03127a1b4af1f478ae8267cad696de7c388ed2217ce8a3a8aea3371"
+    },
+    {
+      "source": "geraf/datasets/transforms/sample.py",
+      "name": "UniformRaySampler",
+      "destination": "sample.py",
+      "ast_sha256": "31445f9e3577992b12b900cf0d986cf68e3d05514fa32ad63eeac5ccde054067"
+    },
+    {
+      "source": "geraf/datasets/transforms/sample.py",
+      "name": "TargetRaySampler",
+      "destination": "sample.py",
+      "ast_sha256": "5879ba31877ef9f4ed7f42c3c2957b1972d0071efe2116993114f5dd6137cdb8"
+    },
+    {
+      "source": "geraf/datasets/transforms/sample.py",
+      "name": "DynamicLossMask",
+      "destination": "sample.py",
+      "ast_sha256": "414be343ffcc84f8937049034296fba5ca940afee099bc67677633c37549cbf1"
+    },
+    {
+      "source": "geraf/datasets/transforms/loading.py",
+      "name": "_sample_volume",
+      "destination": "loading.py",
+      "ast_sha256": "bd5fcbf46c725d45ac65c50bdc4a19fb79224b7308cfb337d18cbf47812af66e"
+    },
+    {
+      "source": "geraf/datasets/transforms/loading.py",
+      "name": "InterpolateMFAtTargets",
+      "destination": "loading.py",
+      "ast_sha256": "dc95537a79ae73dbcc16eb0f9bc52df5632f02e66ea9467fda75759c3703014a"
+    },
+    {
+      "source": "geraf/datasets/transforms/transform.py",
+      "name": "SceneToUnitSphere",
+      "destination": "transform.py",
+      "ast_sha256": "332d2ba1e5fc78688823dd731661092779f0688010f953565f57f6f0b4d8a7ed"
+    },
+    {
+      "source": "geraf/datasets/transforms/transform.py",
+      "name": "AntennasToUnitSphere",
+      "destination": "transform.py",
+      "ast_sha256": "841da5a534f3cd76ca1f5ac0bd70c72be00c82e5356bd3e668856ef83d75ac91"
+    },
+    {
+      "source": "tools/train.py",
+      "name": "IterLRScheduler",
+      "destination": "scheduler.py",
+      "ast_sha256": "e0f12ff433a1321f62ef860cf381bb3d7108ccca0e0e3898935028e182fe5177"
+    },
+    {
+      "source": "geraf/ops/RFSignalTracer/csrc/signal_tracer/SignalTracer_cuda_kernel.cu",
+      "destination": "SignalTracer_reference.cu",
+      "sha256": "669f6f8a98f65320057ac98004547d3ff5b7accbc0a7a18141a99f8dc9e8a392"
+    },
+    {
+      "source": "geraf/ops/RFMatchedFilter/csrc/matched_filter/MatchedFilter_cuda_kernel.cu",
+      "destination": "MatchedFilter_reference.cu",
+      "sha256": "163ac75b80b3f4cc88fe53024aa8cbc345a14e6931f2d4330a0bf4b5cbc09fc4"
+    },
+    {
+      "source": "geraf/models/networks/sdf_network.py",
+      "name": "Embedder",
+      "destination": "sdf_network.py",
+      "ast_sha256": "a2acabc7bca7fec2c74405945d4504054ac074a58d5e799c75f52c55ddea9769"
+    },
+    {
+      "source": "geraf/models/networks/sdf_network.py",
+      "name": "get_embedder",
+      "destination": "sdf_network.py",
+      "ast_sha256": "b51dbbc97c8d14f9f55c63770313542ecfd1fd30c130dfb25672a67d32046875"
+    },
+    {
+      "source": "geraf/models/networks/sdf_network.py",
+      "name": "SDFNetwork",
+      "destination": "sdf_network.py",
+      "ast_sha256": "c5ae185ee40c591f5c40179a4b7e637f564389f3151b3ad07a66a4dfdaeba9a3"
+    },
+    {
+      "source": "configs/geraf/bunnyboxv1/geraf2_bunnyboxv1_stage1.py",
+      "destination": "stage1_config_reference.py",
+      "sha256": "1e07bd3e2d37be425353328f20d7eeb44ed56197678256fb67d4fcfee869d162"
+    },
+    {
+      "source": "tools/train.py",
+      "destination": "train_reference.py",
+      "sha256": "f0be7652cdc2c59617d05fb9647ea34af944ec5c191a1dcec977ce57f4ac3a6e"
+    }
+  ]
+}

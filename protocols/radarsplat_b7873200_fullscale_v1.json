@@ -1,0 +1,138 @@
+{
+  "schema": "rift_radarsplat_b7873200_fullscale_candidate_v1",
+  "status": "review_candidate_unexecuted",
+  "production_clearance": false,
+  "dataset": {
+    "npz_path": "/storage/home/hcoda1/1/dbao31/r-jromberg3-0/RIFT/data/b787_fmcw_16t16r_10ghz_bw3ghz_r10m_sphere10k.npz",
+    "role_manifest": "/storage/scratch1/1/dbao31/rift_round8b_impl_20260810/splits/round8b/b78710k_interp_seed42_train3200_val1000_test1000_v1.json",
+    "response_shape": [10000, 16, 16, 1, 600],
+    "response_dtype": "complex64",
+    "scene": "B787 sphere10k",
+    "scene_extent_m": 0.15,
+    "coordinates_per_view": "16 Tx x 16 Rx x 600 frequency samples"
+  },
+  "split": {
+    "seed": 42,
+    "train_count": 3200,
+    "validation_count": 1000,
+    "reserved_test_count": 1000,
+    "unused_count": 4800,
+    "fit_materialized_roles": ["train", "validation"],
+    "reserved_test_materialized": false,
+    "test_policy": "reserved test is not opened or materialized by preparation, fit, or this readout; evaluate it only in a separately reviewed frozen-checkpoint readout"
+  },
+  "target": {
+    "observable": "native real local-polar power",
+    "projection": "sum_elevation(abs(matched_filter_complex)**2)",
+    "coherent_phase_target": false,
+    "backend": "range_nufft",
+    "compute_dtype": "float64",
+    "point_chunk": 1024,
+    "pair_chunk": 64,
+    "freq_chunk": 64,
+    "nufft_oversample": 2,
+    "nufft_kernel_width": 20,
+    "matched_filter": {
+      "phase_sign": -1.0,
+      "response_layout": "tx_rx_freq",
+      "range_model": "none",
+      "include_four_pi": false
+    },
+    "grid": {
+      "scene_extent_m": 0.15,
+      "n_azimuth": 32,
+      "n_elevation": 32,
+      "n_range": 32,
+      "output_azimuth_resolution_deg": 0.9,
+      "elevation_sampling_resolution_deg": 0.9,
+      "intermediate_azimuth_resolution_deg": 0.09
+    },
+    "normalization": "unclipped linear peak fitted on train targets only",
+    "occupancy_threshold": 0.001
+  },
+  "model": {
+    "initial_gaussians": 2048,
+    "init_extent_m": 0.3,
+    "init_scale_m": 0.003,
+    "init_opacity": 0.1,
+    "init_noise_probability": 0.1,
+    "sh_degree": 3,
+    "sh_degree_interval": 600,
+    "planar_initialization": true,
+    "capacity_rationale": "2048 is 32 times the verified 64-Gaussian smoke capacity and provides two initial rows per 32x32 output bin; it is a conservative full-scene candidate, not a measured convergence choice"
+  },
+  "optimization": {
+    "steps": 480000,
+    "epochs": 150,
+    "updates_per_epoch": 3200,
+    "validation_every": 600,
+    "checkpoint_every": 100,
+    "log_every": 1,
+    "means_lr_base": 0.00016,
+    "scales_lr": 0.005,
+    "quaternions_lr": 0.001,
+    "opacity_lr": 0.05,
+    "noise_probability_lr": 0.05,
+    "sh0_lr": 0.0025,
+    "shn_lr": 0.0025,
+    "adam_beta1": 0.9,
+    "adam_beta2": 0.999,
+    "adam_eps": 1e-15,
+    "budget_rationale": "The trainer samples one train view per update from the sealed 3200-view permutation. The authorized production target is exactly 150 complete passes, so 150 x 3200 = 480000 optimizer updates. The existing SH degree activates every 600 updates and is preserved across all 150 passes; validation remains every 600 updates, yielding 800 validation checkpoints including the terminal step. This is a production-length candidate, not the earlier one-pass 3200-update review candidate"
+  },
+  "objective": {
+    "ssim_weight": 0.2,
+    "occupancy_weight": 5.0,
+    "max_size_weight": 100.0,
+    "opacity_noise_weight": 100.0,
+    "max_scale_m": 0.006,
+    "observable_policy": "native power and occupancy only; no coherent or amplitude claim"
+  },
+  "strategy": {
+    "densification": "disabled; the corrected trainer has no reviewed densification implementation",
+    "prune_opacity": 0.0005,
+    "prune_every": 100,
+    "prune_policy": "strict opacity comparison with retain-one guard and checkpointable topology restore"
+  },
+  "renderer": {
+    "backend": "torch_sparse_reference",
+    "gaussian_chunk_size": 64,
+    "max_raster_candidate_pairs": 2000000,
+    "rationale": "retain the renderer controls exercised by the smoke until a larger-capacity allocation measures a safe alternative"
+  },
+  "resources": {
+    "qos": "inferno",
+    "partition": "gpu-rtx6000",
+    "gpus": 1,
+    "cpus": 6,
+    "memory_gib": 32,
+    "temporary_gib": 12,
+    "time_limit": "12:00:00",
+    "signal_seconds": 300,
+    "memory_acceptance_fraction": 0.8,
+    "capacity_basis": "smoke measured 1.35 GiB process RSS and 32.3 MiB Torch allocation at 64 Gaussians; 2048 rows and the full cache remain unmeasured and must pass phase-level accounting"
+  },
+  "lifecycle": {
+    "fresh_arguments": [],
+    "resume_arguments": ["resume"],
+    "resume_policy": "resume only an exact durable cache/checkpoint lifecycle; terminal preparation, fit, or readout failures remain terminal evidence",
+    "durable_outputs": [
+      "radarsplat_b7873200_recipe.json",
+      "radarsplat_b7873200_manifest.json",
+      "radarsplat_b7873200_stats.json",
+      "radarsplat_b7873200_acquisition.npz",
+      "checkpoint_latest.pt",
+      "checkpoint_best.pt",
+      "checkpoint_final.pt",
+      "gaussian_occupancy_geometry.npz",
+      "summary.json",
+      "training_trace.jsonl",
+      "fullscale_readout.json"
+    ],
+    "phase_resource_markers": [
+      "RADARSPLAT_B7873200_PREPARE_RESOURCE_JSON=",
+      "RADARSPLAT_B7873200_TRAIN_RESOURCE_JSON=",
+      "RADARSPLAT_B7873200_READOUT_RESOURCE_JSON="
+    ]
+  }
+}

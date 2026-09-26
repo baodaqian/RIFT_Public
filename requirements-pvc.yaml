@@ -1,0 +1,62 @@
+# RIFT environment for Intel Data Center GPU Max 1100 (PVC) nodes on ACES (2026-09-21).
+# From the repository root:
+#   conda env create -f requirements-pvc.yaml -p /scratch/group/p.cis261724.000/envs/RIFT-PVC
+# Then: source .local-setup/activate-pvc.sh   (loads NO CUDA or Intel compiler modules:
+# the XPU torch wheel bundles its oneAPI runtime; intel-compilers/2025.1.1 shadows it
+# with an older Unified Runtime loader and breaks `import torch`).
+#
+# Differences from requirements.yaml (CUDA):
+# - torch 2.12.1+xpu from the PyTorch XPU index. torch 2.6.0+xpu is unusable here:
+#   it rejects float64/complex matmul and einsum (oneDNN) and silently runs the
+#   range operator's complex128 FFT on the CPU. 2.12.1 passes the range-operator
+#   exactness, adjoint and gradient gates on the device (docs/PVC_ENVIRONMENT_PLAN.md).
+# - No torchvision/torchaudio: no RIFT module imports them. If a ported RadarSplat
+#   or Radar Fields backend needs torchvision, add torchvision==0.27.1+xpu (same index).
+# - jaxtyping kept (declared RadarSplat dependency), same version as the CUDA env.
+# - open3d is a REQUIRED SECOND STEP, exactly as in the CUDA env: the PyPI wheel
+#   needs a newer glibc than this host, so install the conda-forge build with the
+#   runtime pins held so conda does not move numpy/matplotlib/pillow:
+#     conda install -p /scratch/group/p.cis261724.000/envs/RIFT-PVC -c conda-forge \
+#       --override-channels open3d=0.19.0 numpy=1.26.0 matplotlib-base=3.10.1 \
+#       pillow=11.1.0 python=3.10.16 pip=25.0 setuptools=75.8.0 wheel=0.45.1
+# Goal (2026-09-21): all six models run on PVC. Radar Fields (tinycudann) and
+# RadarSplat (gsplat rasterizer, fused-SSIM) have CUDA-only kernels; their PVC
+# backends are to be re-implemented as faithfully to the originals as possible.
+# That is adaptation work (docs/PVC_ENVIRONMENT_PLAN.md), not an environment step.
+name: RIFT-PVC
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.10.16
+  - pip=25.0
+  - setuptools=75.8.0
+  - wheel=0.45.1
+  - pip:
+      - --extra-index-url https://download.pytorch.org/whl/xpu
+      - torch==2.12.1+xpu
+      - numpy==1.26.0
+      - scipy==1.15.2
+      - matplotlib==3.10.1
+      - wandb==0.25.1
+      - plyfile==1.1
+      - tqdm==4.67.1
+      - pandas==2.3.1
+      - scikit-image==0.25.2
+      - seaborn==0.13.2
+      - configargparse==1.7.1
+      - PyYAML==6.0.3
+      - imageio==2.37.0
+      - pillow==11.1.0
+      - ninja==1.11.1.3
+      - rich==13.9.4
+      - pytest==9.1.1
+      - jaxtyping==0.3.7
+variables:
+  # Avoid silently importing unrelated ~/.local packages.
+  PYTHONNOUSERSITE: '1'
+  MPLBACKEND: Agg
+  # Cache JIT-compiled SYCL kernels across jobs (SYCL_CACHE_DIR is set by activate-pvc.sh).
+  SYCL_CACHE_PERSISTENT: '1'
+  # Report any op that silently falls back from XPU to CPU.
+  PYTORCH_DEBUG_XPU_FALLBACK: '1'

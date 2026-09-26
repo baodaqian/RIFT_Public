@@ -1,0 +1,81 @@
+{
+  "schema": "rift_gotcha_step2_p1_raw_bp_profile_protocol_v1",
+  "stage": "profile",
+  "source": {
+    "archive_root_contract": "converted_v3_joint8_fullpol",
+    "relative_path": "shards/pass1_hh.npz",
+    "pass_id": 1,
+    "polarization": "hh"
+  },
+  "selection": {
+    "role": "train",
+    "sector_id": 2,
+    "canonical_identity": "(pass, polarization, sector, pulse)",
+    "order": "ascending canonical identity",
+    "all_native_pulses_in_sector": true
+  },
+  "native_contract": {
+    "frequency_policy": "native_stored_exact",
+    "r0_field": "r0",
+    "r0_unit": "m",
+    "geometry": "paired_monostatic_tx_equals_rx_same_observation",
+    "phase_hypothesis": "demanet_2012_gotcha_phase_candidate",
+    "phase_forward": "exp(-i * 4*pi*f/c * (R-r0))",
+    "phase_adjoint": "conjugate(exp(-i * 4*pi*f/c * (R-r0)))",
+    "phase_status": "named_candidate_unverified_for_real_archive",
+    "autofocus": "raw_unapplied_channel_owned",
+    "autofocus_application": "not_run_sign_order_and_units_unverified",
+    "amplitude_weighting": false,
+    "normalization": "mean_native_sample",
+    "uniform_frequency_grid": false
+  },
+  "support": {
+    "schema": "rift_gotcha_native_frame_h0_support_v1",
+    "support_mode": "plane_no_height",
+    "bounds_m": {
+      "x": [-8.0, 8.0],
+      "y": [-8.0, 8.0],
+      "z": [0.0, 0.0]
+    },
+    "sampling": {
+      "spacing_m": [0.25, 0.25, 1.0],
+      "shape": [65, 65, 1]
+    },
+    "frame_contract": "antenna_xyz_unchanged",
+    "registration_status": "unresolved",
+    "support_status": "conditional_imaging_hypothesis_only",
+    "units": {
+      "x": "m",
+      "y": "m",
+      "z": "m",
+      "r0": "m",
+      "frequency": "Hz"
+    },
+    "phase_hypothesis": "demanet_2012_gotcha_phase_candidate",
+    "autofocus_status": "raw_unapplied_channel_owned",
+    "runtime_profile_origin_only": true,
+    "target_roi_or_localization_claim": false,
+    "max_kernel_evaluations": 250000000,
+    "point_chunk_size": 4096
+  },
+  "outputs": {
+    "raw_complex_bp": "bp_complex.npy",
+    "x_coordinates": "x.npy",
+    "y_coordinates": "y.npy",
+    "plot": "bp_native_xy_z0.png",
+    "plot_display": {
+      "quantity": "20log10(abs(BP)/A_ref)",
+      "A_ref": "profile peak magnitude",
+      "clip_db": [-40.0, 0.0],
+      "x_horizontal": true,
+      "y_vertical": true,
+      "origin": "lower",
+      "aspect": "equal"
+    }
+  },
+  "future_path": {
+    "coarse": "NOT RUN; needs a new reviewed finite allocation",
+    "refinement": "NOT RUN; needs a new reviewed finite allocation",
+    "auto_chain": false
+  }
+}

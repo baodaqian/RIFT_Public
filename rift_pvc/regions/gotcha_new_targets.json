@@ -1,0 +1,87 @@
+{
+ "schema": "rift_gotcha_regions_v1",
+ "regions": {
+  "sentra_box_v1": {
+   "target_id": "nissan_sentra",
+   "translation_m": [
+    22.825049100066234,
+    -28.883124746701913,
+    0.77
+   ],
+   "rotation_local_to_native": [
+    [
+     -0.11847984558167712,
+     0.9929564573489322,
+     0.0
+    ],
+    [
+     -0.9929564573489322,
+     -0.11847984558167712,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "half_extent_m": 3.0,
+   "placement_provenance": "Nissan Sentra (C2): box centre at the TRAIN-only locate estimate (scripts_pvc/gotcha_target_locate.py, full unit split, all pulses and bins, incoherent over 8 passes; start from Casteel et al. 2007 Fig. 1) (22.83, -28.88) native m, local +x along the estimated long axis -96.8 deg; native z 0.77 m as camry_box_v2 (same lot). The box is centred and axis-aligned in this frame, half-extents (3.0, 1.5, 1.25) m as camry_box_v2; half_extent_m 3.0 bounds it for the range readout window only. Camry control of the same estimator: (20.98, -19.34), -97.1 deg against camry_box_v2 (20.72, -19.23), -93.0 deg (docs/RIFT_GOTCHA_Tune.md A75)."
+  },
+  "prizm_box_v1": {
+   "target_id": "chevy_prizm",
+   "translation_m": [
+    35.54144872927403,
+    -42.35973554686546,
+    0.77
+   ],
+   "rotation_local_to_native": [
+    [
+     -0.0828470770453244,
+     0.9965622719253655,
+     0.0
+    ],
+    [
+     -0.9965622719253655,
+     -0.0828470770453244,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "half_extent_m": 3.0,
+   "placement_provenance": "DROPPED (user, 2026-09-24: no reference mesh; do not launch). Chevy Prizm (C3): box centre at the TRAIN-only locate estimate (scripts_pvc/gotcha_target_locate.py, full unit split, all pulses and bins, incoherent over 8 passes; start from Casteel et al. 2007 Fig. 1) (35.54, -42.36) native m, local +x along the estimated long axis -94.8 deg; native z 0.77 m as camry_box_v2 (same lot). The box is centred and axis-aligned in this frame, half-extents (3.0, 1.5, 1.25) m as camry_box_v2; half_extent_m 3.0 bounds it for the range readout window only. Camry control of the same estimator: (20.98, -19.34), -97.1 deg against camry_box_v2 (20.72, -19.23), -93.0 deg (docs/RIFT_GOTCHA_Tune.md A75).",
+   "status": "DROPPED 2026-09-24 by the user (no reference mesh found); do not launch"
+  },
+  "santafe_box_v1": {
+   "target_id": "hyundai_santa_fe",
+   "translation_m": [
+    29.210904751306852,
+    -19.813976555953015,
+    0.77
+   ],
+   "rotation_local_to_native": [
+    [
+     -0.025376857274439245,
+     0.9996779557011711,
+     0.0
+    ],
+    [
+     -0.9996779557011711,
+     -0.025376857274439245,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "half_extent_m": 3.0,
+   "placement_provenance": "Hyundai Santa Fe (C4; user position about (30, -19) m): box centre at the TRAIN-only locate estimate (scripts_pvc/gotcha_target_locate.py, full unit split, all pulses and bins, incoherent over 8 passes) (29.21, -19.81) native m, local +x along the estimated long axis -91.5 deg; native z 0.77 m as camry_box_v2 (same lot). The box is centred and axis-aligned in this frame, half-extents (3.0, 1.5, 1.25) m as camry_box_v2; half_extent_m 3.0 bounds it for the range readout window only. Camry control of the same estimator: (20.98, -19.34), -97.1 deg against camry_box_v2 (20.72, -19.23), -93.0 deg (docs/RIFT_GOTCHA_Tune.md A75/A76)."
+  }
+ }
+}

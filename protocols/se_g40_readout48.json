@@ -1,0 +1,5 @@
+{
+  "granularity": 40,
+  "export_grid": 48,
+  "initialization_std": 0.05
+}

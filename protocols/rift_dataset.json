@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "dataset_id": "rift_dataset_v1",
+  "name": "RIFT dataset",
+  "views_per_object": 10000,
+  "viewpoint_sampling": "fibonacci_sphere",
+  "response_shape": [10000, 16, 16, 1, 600],
+  "response_dtype": "complex64",
+  "radar_fc_hz": 10000000000.0,
+  "radar_bandwidth_hz": 3000000000.0,
+  "standoff_m": 10.0,
+  "target_max_extent_m": 0.1,
+  "scene_extent_m": 0.15,
+  "phase_sign": -1.0,
+  "split": {"seed": 42, "num_train": 3200, "num_validation": 1000, "num_test": 1000, "num_unused": 4800},
+  "objects": [
+    {"object_id": "airliner_a320", "aliases": ["a320"], "source": "mesh_fmcw_16t16r_10ghz_bw3ghz_r10m_sphere10k_data/objects/airliner_a320_fmcw_16t16r_10ghz_bw3ghz_r10m_sphere10k.npz", "geometry_filename": "A320_OpenVSP.stl", "geometry_input_frame": "source_model_units"},
+    {"object_id": "supersonic_x59", "aliases": ["x59"], "source": "mesh_fmcw_16t16r_10ghz_bw3ghz_r10m_sphere10k_data/objects/supersonic_x59_fmcw_16t16r_10ghz_bw3ghz_r10m_sphere10k.npz", "geometry_filename": "nasa_x59.stl", "geometry_input_frame": "source_model_units"},
+    {"object_id": "firetruck", "aliases": [], "source": "mesh_fmcw_16t16r_10ghz_bw3ghz_r10m_sphere10k_data/objects/firetruck_fmcw_16t16r_10ghz_bw3ghz_r10m_sphere10k.npz", "geometry_filename": "kenney_firetruck.stl", "geometry_input_frame": "source_model_units"},
+    {"object_id": "race_car", "aliases": ["racecar"], "source": "mesh_fmcw_16t16r_10ghz_bw3ghz_r10m_sphere10k_data/objects/race_car_fmcw_16t16r_10ghz_bw3ghz_r10m_sphere10k.npz", "geometry_filename": "kenney_race_future.stl", "geometry_input_frame": "source_model_units"},
+    {"object_id": "loader", "aliases": [], "source": "mesh_fmcw_16t16r_10ghz_bw3ghz_r10m_sphere10k_data/objects/loader_fmcw_16t16r_10ghz_bw3ghz_r10m_sphere10k.npz", "geometry_filename": "kenney_tractor_shovel.stl", "geometry_input_frame": "source_model_units"},
+    {"object_id": "b787", "aliases": [], "source": "mesh_fmcw_16t16r_10ghz_bw3ghz_r10m_sphere10k_data/objects/b787_fmcw_16t16r_10ghz_bw3ghz_r10m_sphere10k.npz", "geometry_filename": "B787.stl", "geometry_input_frame": "source_model_units"}
+  ]
+}

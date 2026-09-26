@@ -1,0 +1,175 @@
+{
+  "schema": "rift_gotcha_camry_fullpol_protocol_v1",
+  "stage": "full_train_fit",
+  "data_free": false,
+  "test_sealed": true,
+  "selection": {
+    "pass_id": 1,
+    "sector_id": 2,
+    "role": "train",
+    "polarizations": ["hh", "hv", "vh", "vv"],
+    "frequency_policy": "all_native_stored_exact",
+    "cross_polarization_intersection": "not_used; each channel selected independently",
+    "frequency_thinning": false,
+    "pulse_subsampling": false,
+    "canonical_identity": "(pass_id, polarization, sector_id, pulse_index)",
+    "identity_order": "ascending canonical identity per channel"
+  },
+  "source": {
+    "archive_type": "NativeShard",
+    "archive_root_contract": "converted_v3_joint8_fullpol/shards",
+    "required_relative_paths": [
+      "pass1_hh.npz",
+      "pass1_hv.npz",
+      "pass1_vh.npz",
+      "pass1_vv.npz"
+    ],
+    "scene_id": "gotcha_v1_joint8_fullpol",
+    "loader": "rift.gotcha_acquisition.load_native_shard",
+    "metadata_inventory": "actual archive headers at runtime; counts are never assumed equal"
+  },
+  "spatial": {
+    "target_id": "toyota_camry",
+    "cube_side_m": 10.0,
+    "placement": "CAMRY_PLACEMENT",
+    "placement_equation": "p_native = R @ p_local + t",
+    "placement_qualification": "footprint_derived_vehicle_axis_inference_not_independently_registered",
+    "physical_registration_claim": false,
+    "translation_m": [20.66, -18.71, 0.02],
+    "rotation": [
+      [-0.05442654550121675, 0.9985177770800097, 0.0],
+      [-0.9985177770800097, -0.05442654550121675, 0.0],
+      [0.0, 0.0, 1.0]
+    ],
+    "h_space": "c/(2*f_max) exact float64",
+    "N": "floor(10/h_space)+1",
+    "point_definition": "(i-(N-1)/2)*h_space",
+    "edge_margin": "[10-(N-1)*h_space]/2",
+    "candidate_lattice": "implicit; never materialize N^3",
+    "max_active_sites": 8192,
+    "max_allocated_sites": 8192,
+    "support_policy": "fixed legal integer lattice indices for all CGLS/Adam epochs",
+    "scout": {
+      "method": "all-four-pol DC projected adjoint",
+      "block_width": 16,
+      "internal_block_quota": 2048,
+      "max_bisections": 4,
+      "max_final_leaves": 8192
+    }
+  },
+  "measurement": {
+    "basis": "native monostatic reference-range phase and unit-spreading treatment",
+    "geometry_dtype": "float64",
+    "response_dtype": "complex128",
+    "point_weights": "integrated complex point weights; no h_space^3 factor",
+    "source_af": {
+      "hh": "own official source-AF exactly once",
+      "vv": "own official source-AF exactly once",
+      "hv": "raw native observation; official source-AF absent",
+      "vh": "raw native observation; official source-AF absent",
+      "formula": "r_eff=float64(r0_raw)+float64(r_correct_raw); y_eff=complex128(y_raw)*exp(+i*float64(ph_correct_raw))",
+      "kernel": "exp[-i*(4*pi*f/c)*(R-r_eff)]"
+    },
+    "range_projector": {
+      "construction": "full accepted Camry cube per channel before CGLS",
+      "h_m": null,
+      "h_m_semantics": "RangeSubspacePlan range spacing; default h_m==g_m; never h_space",
+      "fixed_before_training": true
+    }
+  },
+  "model": {
+    "heads": ["hh", "hv", "vh", "vv"],
+    "sh_degree": 3,
+    "basis_kind": "real_sh",
+    "sh_order": "degree_major_m_minus_l_to_l",
+    "basis_count": 16,
+    "coefficients_are_complex": true,
+    "gains": ["hh", "hv", "vh", "vv"],
+    "gain_scope": "one constant GlobalComplexGain per complete channel",
+    "integrated_point_weights": true,
+    "voxel_volume_scaling": false
+  },
+  "training": {
+    "epochs": 150,
+    "seed": 42,
+    "optimizer": "AdamW",
+    "scene_lr": 0.003,
+    "gain_lr": 0.003,
+    "betas": [0.9, 0.999],
+    "eps": 1e-08,
+    "weight_decay": 0.0,
+    "logical_updates": "150*max(n_p), one combined step per ragged batch index",
+    "cgls": "DC/Y00 only, zero start, at most 24 iterations per channel",
+    "cgls_diagnostics": [0, 8, 16, 24],
+    "gain_initialization": "one full-channel projected ragged call before Adam",
+    "rms_normalization": "one prediction-preserving normalization before optimizer",
+    "all_sh_bands_train_from_step1": true,
+    "priors": "fixed gain-gauge-invariant joint group and SH penalties"
+  },
+  "checkpoints": {
+    "required": [
+      "checkpoint_bp.npz",
+      "checkpoint_cgls.pt",
+      "checkpoint_initialization.pt",
+      "checkpoint_best.pt",
+      "checkpoint_latest.pt",
+      "checkpoint_final.pt"
+    ],
+    "best_selection": "strict finite minimum full-panel TRAIN macro Q among epochs 1..150",
+    "final_selection": "terminal epoch 150 only",
+    "resume": "latest restores model/gain/optimizer/scheduler/RNG/reference state without rerunning BP/CGLS/gain initialization",
+    "test_opened": false
+  },
+  "outputs": {
+    "preflight": "preflight.json",
+    "protocol_echo": "protocol_echo.json",
+    "config": "config.json",
+    "device": "device.json",
+    "resource": "resource.json",
+    "support_search": "support_search.json",
+    "bp_metrics": "bp_metrics.json",
+    "cgls_metrics": "cgls_metrics.json",
+    "initialization_metrics": "initialization_metrics.json",
+    "metrics": "metrics.json",
+    "support_readout": "support_readout.json",
+    "gain_values": "gain_values.json",
+    "training_history": "training_history.json",
+    "checkpoint_manifest": "checkpoint_manifest.json",
+    "status": "status.json"
+  },
+  "reporting": {
+    "train_relative_errors": ["bp", "cgls_initial", "best", "final"],
+    "relative_error_axes": ["hh", "hv", "vh", "vv", "macro"],
+    "optimizer_improvement": "signed reduction Q_cgls_initial-Q_best; positive means improvement",
+    "range_projector_retained_energy": "||B_p y_p||^2/||y_p||^2 over the full accepted Camry cube, by polarization and pooled",
+    "learned_global_gains": "all four named complex gains with log_mag, phase, and initialized state",
+    "optimizer_diagnostics": "every logical update records finite gradient RMS, parameter RMS before step, LR used, update RMS, and relative step for each scene head and gain; each history row aggregates mean/max/last by group and preserves scene/gain summaries"
+  },
+  "validation": {
+    "same_allocation_before_fit": true,
+    "runtime_validator": "scripts/validate_gotcha_camry_fullpol_runtime.py",
+    "runtime_command": "python3 -B scripts/validate_gotcha_camry_fullpol_runtime.py",
+    "expected_core_test_count": 19,
+    "cuda_required_test": "tests.test_gotcha_camry_fullpol_core.CamryTrainingContractTest.test_cuda_checkpoint_round_trip_restores_rng_optimizer_devices_and_resume_readiness",
+    "cuda_skip_is_failure": true,
+    "requirements": ["Torch import succeeds", "CUDA is available", "exactly one visible/default CUDA device is NVIDIA A100", "all 19 core tests run with zero skips, failures, or errors", "best and latest CUDA restore/resume test passes"]
+  },
+  "success_gate": {
+    "same_best_checkpoint": true,
+    "macro_Q_le": 0.2,
+    "Q_le_half_Q_BP": true,
+    "every_Qp_le": 0.2,
+    "full_native_metrics_separate": true,
+    "test_sealed": true
+  },
+  "resource": {
+    "qos": "inferno",
+    "partition": "gpu-a100",
+    "gpu": "A100",
+    "cpus": 8,
+    "ram_gib": 64,
+    "tmp_gib": 16,
+    "walltime": "2-00:00:00",
+    "submission": "manager-owned only; this driver does not submit"
+  }
+}

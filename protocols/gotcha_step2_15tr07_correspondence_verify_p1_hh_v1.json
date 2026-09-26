@@ -1,0 +1,179 @@
+{
+  "schema": "rift_gotcha_step2_15tr07_correspondence_verify_p1_hh_protocol_v1",
+  "stage": "verification",
+  "source": {
+    "archive_root_contract": "converted_v3_joint8_fullpol",
+    "relative_path": "shards/pass1_hh.npz",
+    "scene_id": "gotcha_v1_joint8_fullpol",
+    "pass_id": 1,
+    "polarization": "hh",
+    "archive_units_disclosure": "source metadata says m/rad; this archive does not independently certify those units"
+  },
+  "prior_artifact": {
+    "required_status": "PASS",
+    "required_stage": "diagnostic",
+    "required_driver_schema": "rift_gotcha_step2_15tr07_nominal_psf_driver_v1",
+    "required_selection_train_sector_ids": [268, 269, 270],
+    "required_validation_sector_ids": [271],
+    "required_source_bp_array": "bp_source_mean_native_sample.npy",
+    "required_source_psf_array": "psf_source_mean_native_sample.npy",
+    "png_provenance_required": true
+  },
+  "selection": {
+    "train_role": "train",
+    "train_sector_ids": [268, 269, 270],
+    "validation_role": "validation",
+    "validation_sector_ids": [271],
+    "candidate_source": "prior source-AF mean BP only",
+    "candidate_field": "conditional_train_grid_feature_xyz_m",
+    "tie_break": "lowest flat (ix,iy) index",
+    "interior_margin_cells": 4,
+    "unique_peak_gap_db": 3.0,
+    "validation_used_for_selection": false,
+    "raw_bp_used_for_selection": false
+  },
+  "nominal_point_c": {
+    "xyz_m": [-5.12, 22.98, -0.05],
+    "identity_mapping_status": "unverified working hypothesis",
+    "heading_degrees": 270.0,
+    "heading_convention_status": "unverified working hypothesis; sector index near 270 is not verified alignment",
+    "truth_or_phase_center_claim": false
+  },
+  "support": {
+    "schema": "rift_gotcha_native_frame_h0_support_v1",
+    "support_mode": "plane_no_height",
+    "bounds_m": {
+      "x": [-6.42, -3.82],
+      "y": [21.68, 24.28],
+      "z": [-0.05, -0.05]
+    },
+    "sampling": {
+      "spacing_m": [0.1, 0.1, 1.0],
+      "shape": [27, 27, 1]
+    },
+    "frame_contract": "antenna_xyz_unchanged",
+    "registration_status": "unresolved",
+    "support_status": "conditional_imaging_hypothesis_only",
+    "support_interpretation": "bounded 2.6 m neighborhood diagnostic support, not a survey-to-phase-center displacement bound",
+    "pitch_interpretation": "0.10 m pitch is a display/sampling choice, not a coherent field-fitting quadrature claim",
+    "max_kernel_evaluations": 250000000,
+    "runtime_profile_origin_only": false,
+    "target_roi_or_localization_claim": false,
+    "phase_hypothesis": "demanet_2012_gotcha_phase_candidate",
+    "autofocus_status": "raw_unapplied_channel_owned",
+    "point_chunk_size": 4096,
+    "units": {
+      "x": "m",
+      "y": "m",
+      "z": "m",
+      "r0": "m",
+      "frequency": "Hz"
+    }
+  },
+  "patch": {
+    "radius_cells": 4,
+    "shape": [9, 9, 1],
+    "point_count": 81,
+    "center": "frozen train candidate grid point",
+    "no_recentering": true,
+    "no_transform": true
+  },
+  "native_contract": {
+    "frequency_policy": "native_stored_exact",
+    "frequency_vector_layout": "one_shared_exact_vector_per_shard",
+    "expected_native_frequency_count_per_pulse": 424,
+    "r0_field": "r0",
+    "geometry": "paired_monostatic_tx_equals_rx_same_observation",
+    "phase_forward": "exp(-i * 4*pi*f/c * (R-r0))",
+    "phase_adjoint": "conjugate(exp(-i * 4*pi*f/c * (R-r0)))",
+    "source_form": "r0_src=float64(r0_raw)+float64(r_correct_raw); fp_src=complex128(fp_raw)*exp(+i*float64(ph_correct_raw))",
+    "interpolation": false,
+    "regridding": false,
+    "windowing": false,
+    "unit_weights": true,
+    "per_pulse_r0_exact_stored": true
+  },
+  "search_controls": {
+    "response_condition_search": false,
+    "train_only_discrete_grid_argmax_selection": true,
+    "continuous_candidate_search": false,
+    "validation_selection": false,
+    "phase_sign_search": false,
+    "gain_search": false,
+    "aperture_search": false,
+    "support_search": false,
+    "refinement": false,
+    "registration": false,
+    "fit": false,
+    "validation_phase_or_gain_optimization": false
+  },
+  "decision_metric": {
+    "name": "fixed_validation_train_patch_shape_consistency",
+    "formula": "rho=abs(vdot(psf_patch,validation_bp_patch))/(norm(psf_patch)*norm(validation_bp_patch))",
+    "zero_norm_result": "inconclusive_nonresolving_validation_patch",
+    "validation_train_patch_norm_ratio_threshold": 0.25,
+    "rho_supported_threshold": 0.8,
+    "rho_inconsistent_threshold": 0.4,
+    "peak_distance_supported_max_cells": 1,
+    "peak_distance_inconsistent_min_exclusive_cells": 1,
+    "metric_interpretation": "phase- and amplitude-invariant descriptive shape consistency; not native-complex held-out prediction",
+    "no_optimizing_phase_or_gain": true
+  },
+  "claims": {
+    "coordinate_alignment": "not_identifiable_without_independent_landmarks",
+    "point_c_scattering_center": "not_identifiable_without_independent_point_c_semantics_or_calibration",
+    "physical_15tr07_return_association": "inconclusive_without_external_identity_evidence",
+    "single_return_ambiguity": "one return cannot separate a global transform from a reference-point offset",
+    "required_alignment_evidence": ">=3 independently surveyed non-collinear native/workbook anchors plus a held-out anchor",
+    "required_point_c_evidence": "independent Point-C/scatterer definition or controlled calibration",
+    "required_identity_evidence": "independent target-specific structure or signature to distinguish clutter",
+    "physical_identity_status_independent_of_conditional_response": true
+  },
+  "budget": {
+    "K": 81,
+    "N_val_definition": "validation_record_count multiplied by exact native frequency samples per record",
+    "new_formula": "(2*K+1)*N_val",
+    "new_line_items": {
+      "validation_source_bp": "K*N_val",
+      "validation_unit_point_forward": "N_val",
+      "validation_source_psf_bp": "K*N_val"
+    },
+    "max_branch_kernel_evaluations": 250000000,
+    "max_combined_kernel_evaluations": 500000000,
+    "extra_probe_kernel_evaluations": 0,
+    "extra_fit_kernel_evaluations": 0,
+    "guard_before_validation_observations_source_conversion_or_bp": true,
+    "cumulative_cap_is_scientific_provenance_guard_not_new_job_resource_consumption": true
+  },
+  "outputs": {
+    "protocol_echo": "protocol_echo.json",
+    "preflight": "preflight.json",
+    "resource": "resource.json",
+    "train_feature": "train_feature.json",
+    "validation_confirmation": "validation_confirmation.json",
+    "correspondence_report": "correspondence_report.json",
+    "status": "status.json",
+    "validation_bp_patch_mean_native_sample": "validation_bp_patch_mean_native_sample.npy",
+    "validation_psf_patch_mean_native_sample": "validation_psf_patch_mean_native_sample.npy",
+    "patch_coordinates": "validation_patch_coordinates.npy"
+  },
+  "disclosure": {
+    "test_payload_opened": false,
+    "test_response_payload_materialized": false,
+    "validation_response_payload_materialized_by_loader": true,
+    "validation_used_for_selection": false,
+    "candidate_frozen_from_train": true,
+    "validation_used_for_model_fitting": false,
+    "supplied_per_row_af_corrections_may_use_validation_responses": true,
+    "held_out_from_candidate_selection_and_model_fitting_not_strict_unseen_response_calibration": true,
+    "validation_sector_is_adjacent_aperture_slice": true,
+    "raw_source_imagery_context_only": true,
+    "no_registered_transform_or_offset": true,
+    "no_fitted_gain_or_phase": true,
+    "source_af_conditionality": true,
+    "current_train_metadata_semantic_match_required": true,
+    "current_train_metadata_match_not_archival_identity_proof": true,
+    "non_test_response_matrix_materialized_by_loader_before_new_work_guard": true,
+    "train_observation_objects_materialized_for_downstream": false
+  }
+}

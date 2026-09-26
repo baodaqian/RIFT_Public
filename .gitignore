@@ -1,0 +1,43 @@
+# Generated Python/build state.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+*.egg-info/
+/.venv/
+/venv/
+/build/
+/dist/
+
+# Local data and experiment products; upstream example assets remain included.
+/data/
+/datasets/
+/checkpoints/
+/training_checkpoints/
+/outputs/
+/runs/
+/cache/
+/logs/
+/tmp/
+/wandb/
+*.log
+*.out
+*.err
+*.bak
+*.bak_*
+*.tmp
+*.swp
+*~
+
+# Machine-specific configuration and credentials.
+.env
+.env.*
+!.env.datasets.example.sh
+*.key
+*.pem
+/.agents/
+/.claude/
+/.codex/
+.DS_Store

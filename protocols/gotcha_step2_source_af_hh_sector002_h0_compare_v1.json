@@ -1,0 +1,152 @@
+{
+  "schema": "rift_gotcha_step2_source_af_hh_sector002_h0_compare_protocol_v1",
+  "stage": "compare",
+  "source": {
+    "archive_root_contract": "converted_v3_joint8_fullpol",
+    "relative_path": "shards/pass1_hh.npz",
+    "scene_id": "gotcha_v1_joint8_fullpol",
+    "pass_id": 1,
+    "polarization": "hh",
+    "archive_units_disclosure": "source metadata says m/rad; this archive does not independently certify those units"
+  },
+  "selection": {
+    "role": "train",
+    "sector_id": 2,
+    "canonical_identity": "(pass, polarization, sector, pulse)",
+    "order": "ascending canonical identity",
+    "all_native_pulses_in_sector": true,
+    "expected_pulse_count": 117,
+    "expected_native_frequency_count_per_pulse": 424,
+    "loaded_roles": ["train", "validation"],
+    "used_roles": ["train"],
+    "test_payload_opened": false
+  },
+  "native_contract": {
+    "frequency_policy": "native_stored_exact",
+    "frequency_vector_layout": "one_shared_exact_vector_per_shard",
+    "r0_field": "r0",
+    "r0_unit": "m",
+    "geometry": "paired_monostatic_tx_equals_rx_same_observation",
+    "phase_hypothesis": "demanet_2012_gotcha_phase_candidate",
+    "phase_forward": "exp(-i * 4*pi*f/c * (R-r0))",
+    "phase_adjoint": "conjugate(exp(-i * 4*pi*f/c * (R-r0)))",
+    "phase_status": "named_candidate_unverified_for_real_archive",
+    "autofocus": "raw_unapplied_channel_owned",
+    "autofocus_application": "source_only_downstream_representation; Gate-1 raw remains unchanged",
+    "source_form": "r0_src=float64(r0_raw)+float64(r_correct_raw); fp_src=complex128(fp_raw)*exp(+i*float64(ph_correct_raw))",
+    "fixed_r0_equivalent_form": "fp_equiv=fp_raw*exp(i*ph_correct-i*(4*pi*f/c)*r_correct), raw r0",
+    "fixed_r0_equivalent_scope": "exact predeclared 9-point panel only",
+    "combined_corrected_r0_response_compensation": false,
+    "double_correction": false,
+    "amplitude_weighting": false,
+    "normalization": "mean_native_sample",
+    "float64_geometry_r0_frequency_corrections": true,
+    "complex128_response_and_accumulation": true,
+    "raw_arrays_retained_unchanged": true,
+    "raw_native_api_mutation": false
+  },
+  "support": {
+    "schema": "rift_gotcha_native_frame_h0_support_v1",
+    "support_mode": "plane_no_height",
+    "bounds_m": {
+      "x": [-8.0, 8.0],
+      "y": [-8.0, 8.0],
+      "z": [0.0, 0.0]
+    },
+    "sampling": {
+      "spacing_m": [0.25, 0.25, 1.0],
+      "shape": [65, 65, 1]
+    },
+    "frame_contract": "antenna_xyz_unchanged",
+    "registration_status": "unresolved",
+    "support_status": "conditional_imaging_hypothesis_only",
+    "runtime_profile_origin_only": true,
+    "target_roi_or_localization_claim": false,
+    "max_kernel_evaluations": 250000000,
+    "phase_hypothesis": "demanet_2012_gotcha_phase_candidate",
+    "autofocus_status": "raw_unapplied_channel_owned",
+    "point_chunk_size": 4096,
+    "units": {
+      "x": "m",
+      "y": "m",
+      "z": "m",
+      "r0": "m",
+      "frequency": "Hz"
+    }
+  },
+  "panel": {
+    "coordinates_m": [-8.0, 0.0, 8.0],
+    "z_m": 0.0,
+    "point_count": 9,
+    "representations": ["source_af", "fixed_r0_equivalent_panel_only"],
+    "no_full_equivalent_bp": true,
+    "comparison_quantity": "complex weighted contributions response*conjugate(kernel), then direct adjoint sums",
+    "response_equality_comparison": false,
+    "relative_tolerance": 2.0e-11,
+    "scaled_absolute_tolerance": 2.0e-11,
+    "tolerance_justification": "float64 geometry/r0/frequency plus complex128 correction/accumulation; not borrowed from an unrelated dot test"
+  },
+  "budget": {
+    "expected_selected_pulse_count": 117,
+    "expected_total_native_frequency_samples": 49608,
+    "full_point_count": 4225,
+    "raw_full_branch_kernel_evaluations": 209593800,
+    "source_full_branch_kernel_evaluations": 209593800,
+    "panel_two_representation_kernel_evaluations": 892944,
+    "total_kernel_evaluations": 420080544,
+    "max_full_branch_kernel_evaluations": 250000000,
+    "max_total_kernel_evaluations": 500000000,
+    "count_all_direct_kernels": true,
+    "guard_before_correction_or_bp": true
+  },
+  "outputs": {
+    "raw_bp_unnormalized": "bp_raw_unnormalized.npy",
+    "source_bp_unnormalized": "bp_source_unnormalized.npy",
+    "raw_bp_mean_native_sample": "bp_raw_mean_native_sample.npy",
+    "source_bp_mean_native_sample": "bp_source_mean_native_sample.npy",
+    "x_coordinates": "x.npy",
+    "y_coordinates": "y.npy",
+    "plot": "bp_raw_source_compare.png",
+    "plot_display": {
+      "quantity": "20log10(abs(BP)/A_ref)",
+      "A_ref": "max(abs(raw),abs(source))",
+      "clip_db": [-40.0, 0.0],
+      "common_scale": true,
+      "all_zero_behavior": "A_ref=0 and both display fields are constant -40 dB; no convention is selected by appearance",
+      "x_horizontal": true,
+      "y_vertical": true,
+      "origin": "lower",
+      "aspect": "equal"
+    }
+  },
+  "disclosure": {
+    "loaded_response_roles": ["train", "validation"],
+    "used_response_roles": ["train"],
+    "frequency_policy": "native_stored_exact",
+    "frequency_vector_layout": "one_shared_exact_vector_per_shard",
+    "shared_native_frequency_count": 424,
+    "selected_response_shape": [117, 424],
+    "validation_transformed": false,
+    "validation_used_for_bp": false,
+    "validation_used_for_scale_energy_peak_or_refinement": false,
+    "validation_response_payload_materialized": true,
+    "validation_used_for_panel": false,
+    "validation_used_for_mean_native_sample_normalization": false,
+    "validation_used_for_common_reference_or_display": false,
+    "selected_train_rows_only_for_downstream_operations": true,
+    "test_payload_opened": false,
+    "test_response_payload_materialized": false,
+    "test_sealing_contract": "archive_metadata_and_row_exclusion_not_independent_historical_exposure_proof",
+    "target_cube_or_localization": false,
+    "model_fit": false,
+    "accuracy_focus_geometry_scores": false,
+    "raw_source_change_diagnostics_only": true,
+    "origin_only_diagnostic": true,
+    "calibration_closure": false
+  },
+  "future_path": {
+    "target_roi_or_model_fit": "NOT RUN; outside this compare stage",
+    "convention_closure": "NOT RUN; source units/sign/order remain disclosed hypotheses",
+    "auto_chain": false
+  }
+}
