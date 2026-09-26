@@ -9,13 +9,6 @@
 > ICLR 2027 submission. The title, abstract, and results in this README reflect
 > the submission last modified on 25 Sept 2026.
 
-| Submission details and revisions | |
-| --- | --- |
-| Submitted | 18 Sept 2026 |
-| Last modified | 25 Sept 2026 |
-| Submission audience | Conference, Senior Area Chairs, Area Chairs, Reviewers, Authors |
-| Paper license | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
-
 **Keywords:** 3D Reconstruction, Scene Representations, Inverse Problem, Radar Novel-View Synthesis (NVS)
 
 **TL;DR:** RIFT is the first radar-native field that performs complex-valued
