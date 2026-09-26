@@ -1,4 +1,53 @@
-# RIFT Public — Intel PVC implementation
+# Radon Implicit Field Transform: Fully Radar-Native Novel-View Synthesis and 3D Reconstruction
+
+**Daqian Bao<sup>1</sup>, Alex Saad-Falcon<sup>1</sup>, Justin Romberg<sup>1</sup>**  
+<sup>1</sup> [Georgia Institute of Technology](https://www.gatech.edu)
+
+**ICLR 2027 Conference Submission** · [arXiv:2410.19801](https://arxiv.org/abs/2410.19801)
+
+> **arXiv update pending:** The arXiv preprint has not yet been updated to the
+> ICLR 2027 submission. The title, abstract, and results in this README reflect
+> the submission last modified on 25 Sept 2026.
+
+| Submission details and revisions | |
+| --- | --- |
+| Submitted | 18 Sept 2026 |
+| Last modified | 25 Sept 2026 |
+| Submission audience | Conference, Senior Area Chairs, Area Chairs, Reviewers, Authors |
+| Paper license | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
+
+**Keywords:** 3D Reconstruction, Scene Representations, Inverse Problem, Radar Novel-View Synthesis (NVS)
+
+**TL;DR:** RIFT is the first radar-native field that performs complex-valued
+novel-view synthesis and 3D reconstruction with one model, trained only on
+complex radar measurements and validated on simulated and real-world data.
+
+## Abstract
+
+We introduce the Radon Implicit Field Transform (RIFT), a fully radar-native
+framework for complex-valued novel-view synthesis and 3D reconstruction that
+combines an adaptive point-scatterer representation with a radar forward model.
+Both initialization and optimization use only complex radar measurements and
+calibrated sensor poses, without visual or LiDAR-derived priors, initialization,
+or supervision. RIFT represents the scene with point scatterers at adaptive
+spatial resolutions, with learnable positions and direction-dependent complex
+reflectance parameterized by spherical harmonics. We incorporate the generalized
+Radon transform as a forward model and optimize point-scatterer positions and
+reflectance by matching predicted and measured complex radar signals. During
+optimization, signal-loss gradients guide local increases in spatial resolution
+and spherical-harmonic expansion degree; these capacity updates leave the current
+signal predictions unchanged, except for the coarse-to-fine densification we use
+on lower-resolution measured radar data. We evaluate complex-valued novel-view
+synthesis by comparing forward-model predictions at unseen sensor poses with
+held-out complex measurements, and evaluate 3D reconstruction by comparing
+geometry extracted from the learned point scatterers with reference scene
+geometry. On our simulated dataset, RIFT achieves a mean held-out complex
+relative mean-squared error of $0.3909\%$ and a mean symmetric squared Chamfer
+distance of $4.813\times10^{-5}\,\mathrm{m}^{2}$; on a real-world dataset, it
+reduces the symmetric squared Chamfer distance by up to $95.12\%$ relative to the
+strongest baseline, reaching $5.536\times10^{-2}\,\mathrm{m}^{2}$.
+
+## Intel PVC implementation
 
 RIFT (Radon Implicit Field Transform) learns a direction-dependent complex
 scattering field from radar measurements for novel-view signal prediction and
