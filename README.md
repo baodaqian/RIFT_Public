@@ -3,7 +3,7 @@
 **Daqian Bao<sup>1</sup>, Alex Saad-Falcon<sup>1</sup>, Justin Romberg<sup>1</sup>**  
 <sup>1</sup> [Georgia Institute of Technology](https://www.gatech.edu)
 
-**ICLR 20XX Conference Submission** · [arXiv:2410.19801](https://arxiv.org/abs/2410.19801)
+**XXXX 20XX Conference Submission** · [arXiv:2410.19801](https://arxiv.org/abs/2410.19801)
 
 > **arXiv update pending:** The arXiv preprint has not yet been updated to the
 > ICLR 2027 submission. The title, abstract, and results in this README reflect
