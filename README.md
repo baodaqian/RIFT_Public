@@ -42,7 +42,7 @@ strongest baseline, reaching $5.536\times10^{-2}\,\mathrm{m}^{2}$.
 
 ## Illustrations
 
-Figure numbers follow the ICLR 2027 submission. These figures show the shared
+Figure numbers follow the XXXX 20XX submission. These figures show the shared
 radar field, quantitative comparisons, and the measured-data workflow.
 
 ![Figure 1: Radar viewpoints, the learned RIFT field, complex novel-view synthesis, and 3D reconstruction](assets/figures/figure_01_rift_overview.png)
