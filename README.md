@@ -6,7 +6,7 @@
 **XXXX 20XX Conference Submission** · [arXiv:2410.19801](https://arxiv.org/abs/2410.19801)
 
 > **arXiv update pending:** The arXiv preprint has not yet been updated to the
-> ICLR 2027 submission. The title, abstract, and results in this README reflect
+> XXXX 20XX submission. The title, abstract, and results in this README reflect
 > the submission last modified on 25 Sept 2026.
 
 **Keywords:** 3D Reconstruction, Scene Representations, Inverse Problem, Radar Novel-View Synthesis (NVS)
