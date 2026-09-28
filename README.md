@@ -35,9 +35,9 @@ synthesis by comparing forward-model predictions at unseen sensor poses with
 held-out complex measurements, and evaluate 3D reconstruction by comparing
 geometry extracted from the learned point scatterers with reference scene
 geometry. On our simulated dataset, RIFT achieves a mean held-out complex
-relative mean-squared error of $0.3909%$ and a mean symmetric squared Chamfer
+relative mean-squared error of $0.3909\\%$ and a mean symmetric squared Chamfer
 distance of $4.813\times10^{-5}\mathrm{m}^{2}$; on a real-world dataset, it
-reduces the symmetric squared Chamfer distance by up to $95.12%$ relative to the
+reduces the symmetric squared Chamfer distance by up to $95.12\\%$ relative to the
 strongest baseline, reaching $5.536\times10^{-2}\mathrm{m}^{2}$.
 
 ## Illustrations
